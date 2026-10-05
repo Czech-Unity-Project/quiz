@@ -1,6 +1,8 @@
 import type { Country } from '../config';
 
 export interface Question {
+  /** What the photo shows, e.g. 'Tallinn Old Town'. Shown on the showcase page; the game doesn't show it. */
+  title?: string;
   /** File name inside `public/photos/`, e.g. 'tallinn-old-town.jpg'. */
   image: string;
   /** The correct country. */
