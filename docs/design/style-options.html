@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz style options</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 16px 48px; background: #e9e9ec; font-family: 'Nunito', system-ui, sans-serif; color: #222; }
+  h1 { text-align: center; margin: 0 0 4px; font-size: 22px; }
+  .sub { text-align: center; margin: 0 0 28px; color: #666; font-size: 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; }
+  .opt { width: 300px; }
+  .opt h2 { font-size: 16px; margin: 14px 0 2px; }
+  .opt > p { font-size: 13px; color: #555; margin: 0; line-height: 1.4; }
+
+  /* phone */
+  .phone { width: 300px; height: 620px; border-radius: 44px; padding: 12px; background: #111;
+           box-shadow: 0 0 0 2px #333, 0 30px 50px -20px rgba(0,0,0,.5); position: relative; }
+  .screen { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; position: relative;
+            display: flex; flex-direction: column; padding: 44px 16px 20px; }
+  .notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 90px; height: 24px;
+           background: #111; border-radius: 0 0 16px 16px; z-index: 5; }
+  .top { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 13px; margin-bottom: 10px; }
+  .pill { padding: 5px 11px; border-radius: 99px; }
+  .timer { height: 12px; border-radius: 99px; overflow: hidden; margin-bottom: 14px; position: relative; }
+  .timer i { display: block; height: 100%; width: 64%; border-radius: 99px; position: relative; }
+  .timer i::after { content: ""; position: absolute; left: 4px; right: 4px; top: 2px; height: 3px; border-radius: 99px; background: rgba(255,255,255,.6); }
+  .photo { flex: 1; border-radius: 18px; background-size: cover; background-position: center; margin-bottom: 16px; position: relative; }
+  .q { text-align: center; font-weight: 900; font-size: 16px; margin: 0 0 12px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .btn { position: relative; height: 58px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+         font-weight: 900; font-size: 16px; overflow: hidden; }
+  .btn::before { content: ""; position: absolute; pointer-events: none; }
+
+  /* 1 — Glossy mustard */
+  .s1 .screen { background: radial-gradient(120% 80% at 50% 0%, #f2cf6e 0%, #e0ad3f 55%, #c98f28 100%); color: #4a1f0c; }
+  .s1 .pill { background: rgba(122,30,20,.12); box-shadow: inset 0 1px 2px rgba(0,0,0,.15); }
+  .s1 .timer { background: rgba(90,30,10,.18); box-shadow: inset 0 2px 3px rgba(0,0,0,.25); }
+  .s1 .timer i { background: linear-gradient(#e2483c, #a8221a); }
+  .s1 .photo { border: 4px solid #fff7df; box-shadow: 0 8px 18px -6px rgba(90,40,0,.55); }
+  .s1 .btn { background: linear-gradient(#ffe68a 0%, #f6c63f 50%, #e6a823 100%); color: #5a1a10;
+             border: 3px solid #b3261e; box-shadow: 0 5px 0 #7d1a14, 0 9px 14px -4px rgba(80,20,0,.5);
+             text-shadow: 0 1px 0 rgba(255,255,255,.6); }
+  .s1 .btn::before { left: 6px; right: 6px; top: 3px; height: 45%; border-radius: 12px 12px 30px 30px;
+                     background: linear-gradient(rgba(255,255,255,.85), rgba(255,255,255,.1)); }
+
+  /* 2 — Game show stage */
+  .s2 .screen { background: radial-gradient(70% 45% at 50% 0%, rgba(120,150,255,.45), transparent 70%),
+                            radial-gradient(130% 90% at 50% 100%, #1c2a7a 0%, #0b1240 55%, #050822 100%); color: #fff; }
+  .s2 .pill { background: linear-gradient(#f7dc7a, #c9952c); color: #3a2600; box-shadow: 0 2px 6px rgba(0,0,0,.4); }
+  .s2 .timer { background: #050a2a; box-shadow: inset 0 2px 4px rgba(0,0,0,.6), 0 0 0 1px rgba(255,215,120,.35); }
+  .s2 .timer i { background: linear-gradient(#ffe48a, #e0a42c); box-shadow: 0 0 10px rgba(255,200,80,.7); }
+  .s2 .photo { box-shadow: 0 0 0 3px #d9ab45, 0 0 0 5px #6b4a10, 0 0 24px rgba(120,150,255,.5); }
+  .s2 .btn { color: #fff; border: 2px solid transparent;
+             background: linear-gradient(#2a3fa8, #0d1a63) padding-box, linear-gradient(#fff1b8, #d4a03a 45%, #7a5410) border-box;
+             box-shadow: 0 6px 14px rgba(0,0,0,.55); text-shadow: 0 2px 3px rgba(0,0,0,.6); letter-spacing: .3px; }
+  .s2 .btn::before { left: 0; right: 0; top: 0; height: 50%; background: linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.04)); }
+
+  /* 3 — Candy jelly */
+  .s3 .screen { background: radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eaf1ff 50%, #cfdcf7 100%); color: #23305e; font-family: 'Fredoka', 'Nunito', sans-serif; }
+  .s3 .pill { background: #fff; box-shadow: 0 2px 6px rgba(40,60,140,.18); }
+  .s3 .timer { background: #dfe6f7; box-shadow: inset 0 2px 3px rgba(40,60,140,.2); }
+  .s3 .timer i { background: linear-gradient(#ff9a5c, #f04f3a); }
+  .s3 .photo { border: 5px solid #fff; box-shadow: 0 10px 20px -8px rgba(40,60,140,.45); }
+  .s3 .btn { color: #fff; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; border-radius: 22px;
+             text-shadow: 0 2px 2px rgba(0,0,0,.25); }
+  .s3 .btn::before { left: 8px; right: 8px; top: 4px; height: 44%; border-radius: 18px 18px 40px 40px;
+                     background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.15)); }
+  .s3 .c1 { background: linear-gradient(#ff7a8a, #e3243b); box-shadow: inset 0 -5px 8px rgba(120,0,20,.35), 0 8px 14px -6px #e3243b; }
+  .s3 .c2 { background: linear-gradient(#7ab8ff, #1f6fe0); box-shadow: inset 0 -5px 8px rgba(0,30,110,.35), 0 8px 14px -6px #1f6fe0; }
+  .s3 .c3 { background: linear-gradient(#ffd86a, #f0a400); box-shadow: inset 0 -5px 8px rgba(120,60,0,.35), 0 8px 14px -6px #f0a400; }
+  .s3 .c4 { background: linear-gradient(#7fe08a, #23a33a); box-shadow: inset 0 -5px 8px rgba(0,70,20,.35), 0 8px 14px -6px #23a33a; }
+
+  /* 4 — Frosted glass over the photo */
+  .s4 .screen { color: #fff; }
+  .s4 .bgimg { position: absolute; inset: -30px; background-size: cover; background-position: center; filter: blur(18px) saturate(1.3) brightness(.75); z-index: 0; }
+  .s4 .screen > *:not(.bgimg) { position: relative; z-index: 1; }
+  .s4 .pill { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(8px); }
+  .s4 .timer { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); }
+  .s4 .timer i { background: linear-gradient(90deg, #fff, #ffe6a8); }
+  .s4 .photo { border: 1px solid rgba(255,255,255,.5); box-shadow: 0 14px 30px -10px rgba(0,0,0,.6); }
+  .s4 .btn { background: linear-gradient(135deg, rgba(255,255,255,.32), rgba(255,255,255,.08)); border: 1px solid rgba(255,255,255,.45);
+             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 8px 20px -8px rgba(0,0,0,.5);
+             text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+  .s4 .btn::before { top: -60%; left: -30%; width: 45%; height: 220%; transform: rotate(25deg);
+                     background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); }
+
+  /* 5 — Chunky arcade */
+  .s5 .screen { background: radial-gradient(120% 70% at 50% 0%, #3b2f6b 0%, #241b48 55%, #150f2e 100%); color: #fff; }
+  .s5 .pill { background: #120c28; box-shadow: inset 0 2px 4px rgba(0,0,0,.6), 0 1px 0 rgba(255,255,255,.1); color: #ffd23f; }
+  .s5 .timer { background: #120c28; box-shadow: inset 0 2px 4px rgba(0,0,0,.7); }
+  .s5 .timer i { background: linear-gradient(#ffe066, #ffb400); }
+  .s5 .photo { border: 4px solid #120c28; box-shadow: 0 0 0 3px #4d3f8a, 0 10px 20px rgba(0,0,0,.5); }
+  .s5 .btn { color: #fff; border-radius: 14px; text-shadow: 0 2px 0 rgba(0,0,0,.3); }
+  .s5 .btn::before { left: 5px; right: 5px; top: 3px; height: 40%; border-radius: 10px;
+                     background: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,0)); }
+  .s5 .c1 { background: linear-gradient(#ff6b6b, #e83a4a); box-shadow: 0 7px 0 #9c1c2c, 0 12px 14px rgba(0,0,0,.45); }
+  .s5 .c2 { background: linear-gradient(#4fd1ff, #1a9be0); box-shadow: 0 7px 0 #0b5f94, 0 12px 14px rgba(0,0,0,.45); }
+  .s5 .c3 { background: linear-gradient(#ffd23f, #f5a300); box-shadow: 0 7px 0 #a36400, 0 12px 14px rgba(0,0,0,.45); color: #4a2a00; text-shadow: 0 1px 0 rgba(255,255,255,.5); }
+  .s5 .c4 { background: linear-gradient(#6ee08a, #22b04a); box-shadow: 0 7px 0 #137030, 0 12px 14px rgba(0,0,0,.45); }
+
+  /* ---------- Cartoon styles 6–10: flat fills, inked outlines, hard offset shadows ---------- */
+  .s6  { --bg: #E2B54E; --dot: rgba(255,255,255,.22); --ol: #3a1a0c; --tx: #3a1a0c; --bf: #F7E8B8; --be: #B5322A; --bt: #5A1A12;
+         --tk: #F3D88A; --tf: #B5322A; --pf: #F7E8B8; --pt: #5A1A12; }
+  .s7  { --bg: #FBF3DF; --dot: rgba(199,55,44,.10); --ol: #4a1a0e; --tx: #5A1A12; --bf: #E9BC4F; --be: #C7372C; --bt: #4A1A0E;
+         --tk: #F1E3BE; --tf: #C7372C; --pf: #E9BC4F; --pt: #4A1A0E; }
+  .s8  { --bg: #1E1B3A; --dot: rgba(124,108,240,.18); --ol: #0b0a1c; --tx: #F2F0FF; --bf: #3B3575; --be: #0b0a1c; --bt: #FFFFFF;
+         --tk: #2D2A55; --tf: #FFC24B; --pf: #FFC24B; --pt: #2a1a00; }
+  .s9  { --bg: #F5EFE3; --dot: rgba(31,78,156,.09); --ol: #13305E; --tx: #13305E; --bf: #FFFFFF; --be: #1F4E9C; --bt: #13305E;
+         --tk: #E9DFCB; --tf: #D2693C; --pf: #FFFFFF; --pt: #13305E; }
+  .s10 { --bg: #46178F; --dot: rgba(255,255,255,.08); --ol: #1a0838; --tx: #FFFFFF; --bf: #E21B3C; --be: #1a0838; --bt: #FFFFFF;
+         --tk: #2E0E63; --tf: #FFD23F; --pf: #FFFFFF; --pt: #46178F; }
+
+  :is(.s6,.s7,.s8,.s9,.s10) .screen { background: radial-gradient(var(--dot) 1.6px, transparent 1.8px) 0 0 / 16px 16px, var(--bg);
+                                       color: var(--tx); font-family: 'Fredoka', 'Nunito', sans-serif; }
+  :is(.s6,.s7,.s8,.s9,.s10) .pill { background: var(--pf); color: var(--pt); border: 2.5px solid var(--ol); box-shadow: 2px 2px 0 var(--ol);
+                                     font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  :is(.s6,.s7,.s8,.s9,.s10) .timer { height: 16px; background: var(--tk); border: 2.5px solid var(--ol); box-shadow: 2px 2px 0 var(--ol); }
+  :is(.s6,.s7,.s8,.s9,.s10) .timer i { background: var(--tf); border-radius: 99px; }
+  :is(.s6,.s7,.s8,.s9,.s10) .timer i::after { top: 2px; height: 3px; background: rgba(255,255,255,.55); }
+  :is(.s6,.s7,.s8,.s9,.s10) .photo { border: 3px solid var(--ol); box-shadow: 5px 5px 0 var(--ol); }
+  :is(.s6,.s7,.s8,.s9,.s10) .q { font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  :is(.s6,.s7,.s8,.s9,.s10) .btn { background: var(--bf); color: var(--bt); border: 3px solid var(--be); box-shadow: 4px 4px 0 var(--ol);
+                                    font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; overflow: visible; }
+  :is(.s6,.s7,.s8,.s9,.s10) .btn::before { left: 10px; top: 6px; width: 20px; height: 6px; border-radius: 99px; background: rgba(255,255,255,.75); }
+  .s10 .c2 { background: #1368CE; } .s10 .c3 { background: #FFB800; color: #2a1a00; } .s10 .c4 { background: #26A00C; }
+
+  /* cartoon versions of the animated feedback */
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .grid .btn.ok { background: #5BC85B !important; border-color: var(--ol) !important; color: #fff !important;
+                                                  box-shadow: 4px 4px 0 var(--ol) !important; text-shadow: 0 2px 0 rgba(0,0,0,.25) !important; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .grid .btn.bad { background: #E5484D !important; border-color: var(--ol) !important; color: #fff !important;
+                                                   box-shadow: 4px 4px 0 var(--ol) !important; text-shadow: 0 2px 0 rgba(0,0,0,.25) !important; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .grid .btn.press { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ol); }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .toast { border: 2.5px solid var(--ol); box-shadow: 3px 3px 0 var(--ol); font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .nextbtn { background: var(--pf); color: var(--pt); border: 2.5px solid var(--ol); box-shadow: 3px 3px 0 var(--ol);
+                                             font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .plus { font-family: 'Fredoka', sans-serif; color: #5BC85B; -webkit-text-stroke: 1.5px var(--ol); text-shadow: 2px 2px 0 var(--ol); }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .result { background: rgba(0,0,0,.35); }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .result .card { background: var(--bg); color: var(--tx); border: 3px solid var(--ol); box-shadow: 6px 6px 0 var(--ol);
+                                                  font-family: 'Fredoka', sans-serif; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .result .big { font-family: 'Fredoka', sans-serif; font-weight: 600; text-shadow: 3px 3px 0 rgba(0,0,0,.18); }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .result .again { background: var(--bf); color: var(--bt); border: 3px solid var(--be); box-shadow: 4px 4px 0 var(--ol);
+                                                   font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  .demo.s10 .result .again { background: #FFD23F; color: #2a1a00; }
+
+  /* ---------- Animated preview ---------- */
+  .anim-sec { margin-top: 64px; padding-top: 32px; border-top: 1px solid #d0d0d6; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
+  .chip { border: 1px solid #c4c4cc; background: #fff; border-radius: 99px; padding: 7px 14px; font: 700 13px 'Nunito', sans-serif; cursor: pointer; }
+  .chip.on { background: #222; color: #fff; border-color: #222; }
+  .demo-wrap { display: flex; justify-content: center; }
+  .demo .screen { isolation: isolate; }
+  .demo:not(.s4) .bgimg { display: none; }
+  .demo .bgimg { transition: background-image .4s; }
+  .demo .stage { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .demo .stage.in .photo { animation: photoIn .45s cubic-bezier(.2,.9,.3,1.2) both; }
+  .demo .stage.in .btn { animation: popIn .45s cubic-bezier(.2,.9,.3,1.3) backwards; }
+  .demo .stage.out { animation: slideOut .3s ease-in both; }
+  .demo .photo { overflow: hidden; }
+  .demo .timer i { transition: width 4s linear, background .3s; }
+  .demo .timer i.low { background: linear-gradient(#ff6b5b, #d6281c) !important; animation: throb .5s ease-in-out infinite; }
+  .demo .grid .btn { transition: transform .12s, opacity .25s, filter .25s; }
+  .demo .grid .btn.press { transform: translateY(4px) scale(.97); }
+  .demo .grid .btn.ok { background: linear-gradient(#7ff09a, #1f9e45) !important; border-color: #0f6b2c !important; color: #fff !important;
+                        box-shadow: 0 5px 0 #0f6b2c, 0 0 22px rgba(60,230,110,.85) !important; animation: pulseOk .6s ease-out 2; text-shadow: 0 1px 2px rgba(0,0,0,.3) !important; }
+  .demo .grid .btn.bad { background: linear-gradient(#ff8a8a, #d32f2f) !important; border-color: #8e1b1b !important; color: #fff !important;
+                         box-shadow: 0 5px 0 #8e1b1b !important; animation: shake .45s; text-shadow: 0 1px 2px rgba(0,0,0,.3) !important; }
+  .demo .grid .btn.dim { opacity: .45; filter: saturate(.4); }
+  .demo .pill.bump { animation: bump .45s; }
+  .toast { position: absolute; top: 12px; left: 50%; transform: translate(-50%, -12px); opacity: 0; padding: 7px 14px; border-radius: 99px;
+           font: 900 14px 'Nunito', sans-serif; color: #fff; white-space: nowrap; box-shadow: 0 6px 14px rgba(0,0,0,.35); transition: all .3s cubic-bezier(.2,.9,.3,1.3); z-index: 2; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast.ok { background: #1f9e45; } .toast.bad { background: #d32f2f; } .toast.time { background: #e08a00; }
+  .nextbtn { position: absolute; bottom: 14px; left: 50%; transform: translate(-50%, 20px) scale(.8); opacity: 0; padding: 10px 22px; border-radius: 99px;
+             background: #fff; color: #222; font: 900 15px 'Nunito', sans-serif; box-shadow: 0 5px 0 #bbb, 0 10px 18px rgba(0,0,0,.35); transition: all .3s cubic-bezier(.2,.9,.3,1.3); z-index: 2; }
+  .nextbtn.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  .nextbtn.press { transform: translate(-50%, 4px) scale(.96); box-shadow: 0 1px 0 #bbb; }
+  .plus { position: absolute; right: 22px; top: 40px; font: 900 18px 'Nunito', sans-serif; color: #2fd35f; text-shadow: 0 2px 4px rgba(0,0,0,.35); opacity: 0; z-index: 6; }
+  .plus.go { animation: floatUp .9s ease-out; }
+  .tap { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: rgba(255,255,255,.75);
+         border: 2px solid rgba(0,0,0,.25); opacity: 0; pointer-events: none; z-index: 10; }
+  .tap.go { animation: ripple .45s ease-out; }
+  .result { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+            background: rgba(10,10,30,.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; pointer-events: none;
+            transition: opacity .35s; z-index: 8; overflow: hidden; color: #fff; text-align: center; padding: 24px; }
+  .result.show { opacity: 1; }
+  .result .card { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.35); border-radius: 24px; padding: 26px 22px; width: 100%;
+                  box-shadow: 0 20px 40px -10px rgba(0,0,0,.5); transform: scale(.8); transition: transform .45s cubic-bezier(.2,.9,.3,1.4); }
+  .result.show .card { transform: scale(1); }
+  .result .big { font: 900 64px/1 'Nunito', sans-serif; margin: 6px 0; text-shadow: 0 4px 12px rgba(0,0,0,.4); }
+  .result .msg { font: 700 15px/1.4 'Nunito', sans-serif; margin: 0 0 18px; }
+  .result .again { display: inline-block; padding: 12px 26px; border-radius: 99px; background: linear-gradient(#ffe68a, #f0b52c); color: #4a1f0c;
+                   font: 900 16px 'Nunito', sans-serif; box-shadow: 0 5px 0 #a8701a, 0 10px 18px rgba(0,0,0,.35); transition: transform .12s; }
+  .result .again.press { transform: translateY(4px); }
+  .confetti { position: absolute; top: -12px; width: 8px; height: 13px; border-radius: 2px; animation: fall linear forwards; }
+
+  @keyframes popIn { 0% { opacity: 0; transform: scale(.5) translateY(14px); } 70% { opacity: 1; transform: scale(1.06); } 100% { transform: scale(1); } }
+  @keyframes photoIn { from { opacity: 0; transform: translateX(50px) rotate(2deg) scale(.94); } to { opacity: 1; transform: none; } }
+  @keyframes slideOut { to { opacity: 0; transform: translateX(-60px) scale(.96); } }
+  @keyframes pulseOk { 50% { transform: scale(1.07); } }
+  @keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+  @keyframes bump { 50% { transform: scale(1.3); } }
+  @keyframes throb { 50% { filter: brightness(1.35); } }
+  @keyframes floatUp { 0% { opacity: 0; transform: translateY(10px) scale(.6); } 20% { opacity: 1; transform: translateY(0) scale(1.2); } 100% { opacity: 0; transform: translateY(-30px); } }
+  @keyframes ripple { 0% { opacity: .9; transform: scale(.4); } 100% { opacity: 0; transform: scale(1.6); } }
+  @keyframes fall { to { transform: translateY(640px) rotate(720deg); } }
+
+  /* On a real phone the demo fills the whole screen, no fake bezel */
+  @media (max-width: 500px) {
+    body { padding: 20px 0 0; }
+    .opt { width: 100%; max-width: 340px; }
+    .opt > h2, .opt > p { padding: 0 12px; }
+    .anim-sec { margin-top: 40px; }
+    .demo { max-width: none; }
+    .demo .phone { width: 100vw; height: 100svh; border-radius: 0; padding: 0; box-shadow: none; background: none; }
+    .demo .screen { border-radius: 0; padding-top: 20px; }
+    .demo .notch { display: none; }
+  }
+</style>
+</head>
+<body>
+<h1>Cartoon styles</h1>
+<p class="sub">The first five palettes, cartoon look: flat colours, thick outlines, hard shadows. Real Wikimedia Commons photos.</p>
+<div class="row" id="row-cartoon"></div>
+
+<h1 style="margin-top: 56px">Realistic styles</h1>
+<p class="sub">Glossy and 3D versions, for comparison.</p>
+<div class="row" id="row"></div>
+
+<script>
+  const IMG = (path) => `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}`;
+  const photos = {
+    oia:     IMG('3/37/Oia_sunset_-_panoramio_%282%29.jpg/500px-Oia_sunset_-_panoramio_%282%29.jpg'),
+    tallinn: IMG('e/ed/Old_Town_of_Tallinn%2C_Tallinn%2C_Estonia_-_panoramio_%2858%29.jpg/500px-Old_Town_of_Tallinn%2C_Tallinn%2C_Estonia_-_panoramio_%2858%29.jpg'),
+    gamla:   IMG('8/8a/Gamla_stan_September_2014_01.jpg/500px-Gamla_stan_September_2014_01.jpg'),
+    sagrada: IMG('e/ef/SF_maig_2_cropped.jpg/500px-SF_maig_2_cropped.jpg'),
+    navagio: IMG('d/d3/Navagio%2C_Zante_01.jpg/500px-Navagio%2C_Zante_01.jpg'),
+  };
+  const styles = [
+    { cls: 's1', photo: 'tallinn', name: '1 · Glossy mustard',
+      desc: 'Your idea, made tactile: glossy yellow buttons, a red bevelled edge with a pressable 3D lip, and a glare highlight.' },
+    { cls: 's2', photo: 'oia', name: '2 · Game show stage',
+      desc: 'TV-quiz glamour: spotlit navy stage, glassy blue buttons with gold metallic rims.' },
+    { cls: 's3', photo: 'gamla', name: '3 · Candy jelly',
+      desc: 'Glossy jelly buttons, one colour per answer, on a soft light background. Playful and friendly.' },
+    { cls: 's4', photo: 'sagrada', name: '4 · Frosted glass',
+      desc: 'The photo blurs into the whole background; frosted-glass buttons with a diagonal glare. Each question gets its own colours.' },
+    { cls: 's5', photo: 'navagio', name: '5 · Chunky arcade',
+      desc: 'Thick push-down arcade buttons with a hard 3D edge and shine, on a deep purple cabinet.' },
+    { cls: 's6', cartoon: true, photo: 'tallinn', name: '6 · Matte mustard',
+      desc: 'Your idea: matte mustard, cream buttons with red edges, inked outlines.' },
+    { cls: 's7', cartoon: true, photo: 'sagrada', name: '7 · Cream and tomato',
+      desc: 'Flipped: mustard buttons with tomato-red edges on a cream page.' },
+    { cls: 's8', cartoon: true, photo: 'oia', name: '8 · Midnight arcade',
+      desc: 'Dark violet night with gold accents, like a cartoon game show.' },
+    { cls: 's9', cartoon: true, photo: 'gamla', name: '9 · Aegean',
+      desc: 'Sand, deep blue ink and a terracotta timer. Calm and clean.' },
+    { cls: 's10', cartoon: true, photo: 'navagio', name: '10 · Pop quiz',
+      desc: 'Purple stage with one bold colour per answer.' },
+  ];
+  // cartoon styles first: they're the ones being picked from
+  styles.sort((a, b) => (b.cartoon ? 1 : 0) - (a.cartoon ? 1 : 0));
+  const countries = ['Estonia', 'Sweden', 'Spain', 'Greece'];
+  const card = (s) => `
+    <div class="opt ${s.cls}">
+      <div class="phone"><div class="notch"></div>
+        <div class="screen">
+          ${s.cls === 's4' ? `<div class="bgimg" style="background-image:url('${photos[s.photo]}')"></div>` : ''}
+          <div class="top"><span class="pill">Question 4 / 12</span><span class="pill">Score 3</span></div>
+          <div class="timer"><i></i></div>
+          <div class="photo" style="background-image:url('${photos[s.photo]}')"></div>
+          <p class="q">Where was this photo taken?</p>
+          <div class="grid">${countries.map((c, i) => `<div class="btn c${i + 1}">${c}</div>`).join('')}</div>
+        </div>
+      </div>
+      <h2>${s.name}</h2><p>${s.desc}</p>
+    </div>`;
+  document.getElementById('row-cartoon').innerHTML = styles.filter((s) => s.cartoon).map(card).join('');
+  document.getElementById('row').innerHTML = styles.filter((s) => !s.cartoon).map(card).join('');
+</script>
+
+<section class="anim-sec">
+  <h1>Animated preview</h1>
+  <p class="sub">A live loop of the real flow: answer, mistake, timeout, result. Pick a style to see it animated.<br>(The timer is shortened to 4s for the demo; the real one is 10s.)</p>
+  <div class="chips" id="chips"></div>
+  <div class="demo-wrap">
+    <div class="opt demo s6" id="demo">
+      <div class="phone"><div class="notch"></div>
+        <div class="screen" id="dscreen">
+          <div class="bgimg" id="dbg"></div>
+          <div class="top"><span class="pill" id="dq">Question 1 / 4</span><span class="pill" id="ds">Score 0</span></div>
+          <div class="timer"><i id="dt"></i></div>
+          <div class="stage" id="stage">
+            <div class="photo" id="dp"><div class="toast" id="toast"></div><div class="nextbtn" id="next">Next &rarr;</div></div>
+            <p class="q">Where was this photo taken?</p>
+            <div class="grid" id="dg"></div>
+          </div>
+          <div class="plus" id="plus">+1</div>
+          <div class="tap" id="tap"></div>
+          <div class="result" id="result">
+            <div class="card">
+              <div style="font: 800 14px 'Nunito'; opacity: .85">Your score</div>
+              <div class="big" id="rs">0 / 4</div>
+              <p class="msg">Not bad! A few more trips<br>and you'll ace it.</p>
+              <span class="again" id="again">Play again</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const restart = (el, cls) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
+  const demo = $('demo'), screen = $('dscreen');
+
+  // style chips
+  $('chips').innerHTML = styles.map((s, i) => `<button class="chip${i ? '' : ' on'}" data-cls="${s.cls}">${s.name}</button>`).join('');
+  $('chips').addEventListener('click', (e) => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    document.querySelectorAll('.chip').forEach((c) => c.classList.toggle('on', c === b));
+    styles.forEach((s) => demo.classList.remove(s.cls));
+    demo.classList.add(b.dataset.cls);
+  });
+
+  // the scripted demo: pick = what the "player" taps (null = let the timer run out)
+  const script = [
+    { photo: 'tallinn', answer: 'Estonia', pick: 'Estonia', at: 1700 },
+    { photo: 'sagrada', answer: 'Spain',   pick: 'Greece',  at: 2100 },
+    { photo: 'gamla',   answer: 'Sweden',  pick: null },
+    { photo: 'navagio', answer: 'Greece',  pick: 'Greece',  at: 1400 },
+  ];
+  const TIME = 4000;
+  let score = 0;
+
+  function tapAt(el) {
+    const a = el.getBoundingClientRect(), b = screen.getBoundingClientRect();
+    const t = $('tap');
+    t.style.left = (a.left - b.left + a.width / 2) + 'px';
+    t.style.top = (a.top - b.top + a.height / 2) + 'px';
+    restart(t, 'go');
+  }
+  function confetti() {
+    const colors = ['#ffd23f', '#e83a4a', '#4fd1ff', '#6ee08a', '#ffffff', '#b47cff'];
+    for (let i = 0; i < 45; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.left = Math.random() * 100 + '%';
+      c.style.background = colors[i % colors.length];
+      c.style.animationDuration = 1.6 + Math.random() * 1.6 + 's';
+      c.style.animationDelay = Math.random() * .5 + 's';
+      $('result').appendChild(c);
+      setTimeout(() => c.remove(), 4000);
+    }
+  }
+
+  async function playQuestion(q, n) {
+    const stage = $('stage'), bar = $('dt'), toast = $('toast'), next = $('next');
+    $('dq').textContent = `Question ${n} / ${script.length}`;
+    $('dp').style.backgroundImage = `url('${photos[q.photo]}')`;
+    $('dbg').style.backgroundImage = `url('${photos[q.photo]}')`;
+    $('dg').innerHTML = countries.map((c, i) => `<div class="btn c${i + 1}" style="animation-delay:${120 + i * 80}ms" data-c="${c}">${c}</div>`).join('');
+    stage.classList.remove('out'); restart(stage, 'in');
+
+    // timer: reset to full, then drain
+    bar.style.transition = 'none'; bar.style.width = '100%'; bar.classList.remove('low'); void bar.offsetWidth;
+    bar.style.transition = ''; bar.style.width = '0%';
+    const lowT = setTimeout(() => bar.classList.add('low'), TIME * .7);
+
+    await sleep(q.pick ? q.at : TIME);
+    clearTimeout(lowT);
+    const frozen = getComputedStyle(bar).width;
+    bar.style.transition = 'none'; bar.style.width = frozen;
+
+    const btn = (c) => $('dg').querySelector(`[data-c="${c}"]`);
+    if (q.pick) {
+      tapAt(btn(q.pick)); btn(q.pick).classList.add('press');
+      await sleep(140); btn(q.pick).classList.remove('press');
+    }
+    countries.forEach((c) => {
+      const b = btn(c);
+      if (c === q.answer) b.classList.add('ok');
+      else if (c === q.pick) b.classList.add('bad');
+      else b.classList.add('dim');
+    });
+    const correct = q.pick === q.answer;
+    toast.className = 'toast ' + (correct ? 'ok' : q.pick ? 'bad' : 'time');
+    toast.textContent = correct ? 'Correct!' : q.pick ? `Not quite: it's ${q.answer}` : "Time's up!";
+    void toast.offsetWidth; toast.classList.add('show');
+    if (correct) {
+      score++; $('ds').textContent = `Score ${score}`;
+      restart($('ds'), 'bump'); restart($('plus'), 'go');
+    }
+
+    await sleep(900); next.classList.add('show');
+    await sleep(1000); tapAt(next); next.classList.add('press');
+    await sleep(160); next.classList.remove('press', 'show'); toast.classList.remove('show');
+    stage.classList.remove('in'); stage.classList.add('out');
+    await sleep(320);
+  }
+
+  async function loop() {
+    for (;;) {
+      score = 0; $('ds').textContent = 'Score 0';
+      for (let i = 0; i < script.length; i++) await playQuestion(script[i], i + 1);
+      const r = $('result');
+      $('rs').textContent = `0 / ${script.length}`;
+      r.classList.add('show'); confetti();
+      for (let s = 0; s <= score; s++) { $('rs').textContent = `${s} / ${script.length}`; await sleep(260); }
+      await sleep(2600);
+      tapAt($('again')); $('again').classList.add('press');
+      await sleep(160); $('again').classList.remove('press');
+      r.classList.remove('show');
+      await sleep(400);
+    }
+  }
+  loop();
+</script>
+</body>
+</html>
