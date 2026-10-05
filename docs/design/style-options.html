@@ -101,6 +101,50 @@
   .s5 .c3 { background: linear-gradient(#ffd23f, #f5a300); box-shadow: 0 7px 0 #a36400, 0 12px 14px rgba(0,0,0,.45); color: #4a2a00; text-shadow: 0 1px 0 rgba(255,255,255,.5); }
   .s5 .c4 { background: linear-gradient(#6ee08a, #22b04a); box-shadow: 0 7px 0 #137030, 0 12px 14px rgba(0,0,0,.45); }
 
+  /* ---------- Cartoon styles 6–10: flat fills, inked outlines, hard offset shadows ---------- */
+  .s6  { --bg: #E2B54E; --dot: rgba(255,255,255,.22); --ol: #3a1a0c; --tx: #3a1a0c; --bf: #F7E8B8; --be: #B5322A; --bt: #5A1A12;
+         --tk: #F3D88A; --tf: #B5322A; --pf: #F7E8B8; --pt: #5A1A12; }
+  .s7  { --bg: #FBF3DF; --dot: rgba(199,55,44,.10); --ol: #4a1a0e; --tx: #5A1A12; --bf: #E9BC4F; --be: #C7372C; --bt: #4A1A0E;
+         --tk: #F1E3BE; --tf: #C7372C; --pf: #E9BC4F; --pt: #4A1A0E; }
+  .s8  { --bg: #1E1B3A; --dot: rgba(124,108,240,.18); --ol: #0b0a1c; --tx: #F2F0FF; --bf: #3B3575; --be: #0b0a1c; --bt: #FFFFFF;
+         --tk: #2D2A55; --tf: #FFC24B; --pf: #FFC24B; --pt: #2a1a00; }
+  .s9  { --bg: #F5EFE3; --dot: rgba(31,78,156,.09); --ol: #13305E; --tx: #13305E; --bf: #FFFFFF; --be: #1F4E9C; --bt: #13305E;
+         --tk: #E9DFCB; --tf: #D2693C; --pf: #FFFFFF; --pt: #13305E; }
+  .s10 { --bg: #46178F; --dot: rgba(255,255,255,.08); --ol: #1a0838; --tx: #FFFFFF; --bf: #E21B3C; --be: #1a0838; --bt: #FFFFFF;
+         --tk: #2E0E63; --tf: #FFD23F; --pf: #FFFFFF; --pt: #46178F; }
+
+  :is(.s6,.s7,.s8,.s9,.s10) .screen { background: radial-gradient(var(--dot) 1.6px, transparent 1.8px) 0 0 / 16px 16px, var(--bg);
+                                       color: var(--tx); font-family: 'Fredoka', 'Nunito', sans-serif; }
+  :is(.s6,.s7,.s8,.s9,.s10) .pill { background: var(--pf); color: var(--pt); border: 2.5px solid var(--ol); box-shadow: 2px 2px 0 var(--ol);
+                                     font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  :is(.s6,.s7,.s8,.s9,.s10) .timer { height: 16px; background: var(--tk); border: 2.5px solid var(--ol); box-shadow: 2px 2px 0 var(--ol); }
+  :is(.s6,.s7,.s8,.s9,.s10) .timer i { background: var(--tf); border-radius: 99px; }
+  :is(.s6,.s7,.s8,.s9,.s10) .timer i::after { top: 2px; height: 3px; background: rgba(255,255,255,.55); }
+  :is(.s6,.s7,.s8,.s9,.s10) .photo { border: 3px solid var(--ol); box-shadow: 5px 5px 0 var(--ol); }
+  :is(.s6,.s7,.s8,.s9,.s10) .q { font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  :is(.s6,.s7,.s8,.s9,.s10) .btn { background: var(--bf); color: var(--bt); border: 3px solid var(--be); box-shadow: 4px 4px 0 var(--ol);
+                                    font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; overflow: visible; }
+  :is(.s6,.s7,.s8,.s9,.s10) .btn::before { left: 10px; top: 6px; width: 20px; height: 6px; border-radius: 99px; background: rgba(255,255,255,.75); }
+  .s10 .c2 { background: #1368CE; } .s10 .c3 { background: #FFB800; color: #2a1a00; } .s10 .c4 { background: #26A00C; }
+
+  /* cartoon versions of the animated feedback */
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .grid .btn.ok { background: #5BC85B !important; border-color: var(--ol) !important; color: #fff !important;
+                                                  box-shadow: 4px 4px 0 var(--ol) !important; text-shadow: 0 2px 0 rgba(0,0,0,.25) !important; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .grid .btn.bad { background: #E5484D !important; border-color: var(--ol) !important; color: #fff !important;
+                                                   box-shadow: 4px 4px 0 var(--ol) !important; text-shadow: 0 2px 0 rgba(0,0,0,.25) !important; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .grid .btn.press { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ol); }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .toast { border: 2.5px solid var(--ol); box-shadow: 3px 3px 0 var(--ol); font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .nextbtn { background: var(--pf); color: var(--pt); border: 2.5px solid var(--ol); box-shadow: 3px 3px 0 var(--ol);
+                                             font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .plus { font-family: 'Fredoka', sans-serif; color: #5BC85B; -webkit-text-stroke: 1.5px var(--ol); text-shadow: 2px 2px 0 var(--ol); }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .result { background: rgba(0,0,0,.35); }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .result .card { background: var(--bg); color: var(--tx); border: 3px solid var(--ol); box-shadow: 6px 6px 0 var(--ol);
+                                                  font-family: 'Fredoka', sans-serif; }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .result .big { font-family: 'Fredoka', sans-serif; font-weight: 600; text-shadow: 3px 3px 0 rgba(0,0,0,.18); }
+  .demo:is(.s6,.s7,.s8,.s9,.s10) .result .again { background: var(--bf); color: var(--bt); border: 3px solid var(--be); box-shadow: 4px 4px 0 var(--ol);
+                                                   font-family: 'Fredoka', sans-serif; font-weight: 600; }
+  .demo.s10 .result .again { background: #FFD23F; color: #2a1a00; }
+
   /* ---------- Animated preview ---------- */
   .anim-sec { margin-top: 64px; padding-top: 32px; border-top: 1px solid #d0d0d6; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
@@ -112,7 +156,7 @@
   .demo .bgimg { transition: background-image .4s; }
   .demo .stage { flex: 1; display: flex; flex-direction: column; min-height: 0; }
   .demo .stage.in .photo { animation: photoIn .45s cubic-bezier(.2,.9,.3,1.2) both; }
-  .demo .stage.in .btn { animation: popIn .45s cubic-bezier(.2,.9,.3,1.3) both; }
+  .demo .stage.in .btn { animation: popIn .45s cubic-bezier(.2,.9,.3,1.3) backwards; }
   .demo .stage.out { animation: slideOut .3s ease-in both; }
   .demo .photo { overflow: hidden; }
   .demo .timer i { transition: width 4s linear, background .3s; }
@@ -177,8 +221,12 @@
 </style>
 </head>
 <body>
-<h1>Question screen: style options</h1>
-<p class="sub">Real Wikimedia Commons photos. Buttons shown in their idle state.</p>
+<h1>Cartoon styles</h1>
+<p class="sub">The first five palettes, cartoon look: flat colours, thick outlines, hard shadows. Real Wikimedia Commons photos.</p>
+<div class="row" id="row-cartoon"></div>
+
+<h1 style="margin-top: 56px">Realistic styles</h1>
+<p class="sub">Glossy and 3D versions, for comparison.</p>
 <div class="row" id="row"></div>
 
 <script>
@@ -201,9 +249,21 @@
       desc: 'The photo blurs into the whole background; frosted-glass buttons with a diagonal glare. Each question gets its own colours.' },
     { cls: 's5', photo: 'navagio', name: '5 · Chunky arcade',
       desc: 'Thick push-down arcade buttons with a hard 3D edge and shine, on a deep purple cabinet.' },
+    { cls: 's6', cartoon: true, photo: 'tallinn', name: '6 · Matte mustard',
+      desc: 'Your idea: matte mustard, cream buttons with red edges, inked outlines.' },
+    { cls: 's7', cartoon: true, photo: 'sagrada', name: '7 · Cream and tomato',
+      desc: 'Flipped: mustard buttons with tomato-red edges on a cream page.' },
+    { cls: 's8', cartoon: true, photo: 'oia', name: '8 · Midnight arcade',
+      desc: 'Dark violet night with gold accents, like a cartoon game show.' },
+    { cls: 's9', cartoon: true, photo: 'gamla', name: '9 · Aegean',
+      desc: 'Sand, deep blue ink and a terracotta timer. Calm and clean.' },
+    { cls: 's10', cartoon: true, photo: 'navagio', name: '10 · Pop quiz',
+      desc: 'Purple stage with one bold colour per answer.' },
   ];
+  // cartoon styles first: they're the ones being picked from
+  styles.sort((a, b) => (b.cartoon ? 1 : 0) - (a.cartoon ? 1 : 0));
   const countries = ['Estonia', 'Sweden', 'Spain', 'Greece'];
-  document.getElementById('row').innerHTML = styles.map(s => `
+  const card = (s) => `
     <div class="opt ${s.cls}">
       <div class="phone"><div class="notch"></div>
         <div class="screen">
@@ -216,7 +276,9 @@
         </div>
       </div>
       <h2>${s.name}</h2><p>${s.desc}</p>
-    </div>`).join('');
+    </div>`;
+  document.getElementById('row-cartoon').innerHTML = styles.filter((s) => s.cartoon).map(card).join('');
+  document.getElementById('row').innerHTML = styles.filter((s) => !s.cartoon).map(card).join('');
 </script>
 
 <section class="anim-sec">
@@ -224,7 +286,7 @@
   <p class="sub">A live loop of the real flow: answer, mistake, timeout, result. Pick a style to see it animated.<br>(The timer is shortened to 4s for the demo; the real one is 10s.)</p>
   <div class="chips" id="chips"></div>
   <div class="demo-wrap">
-    <div class="opt demo s1" id="demo">
+    <div class="opt demo s6" id="demo">
       <div class="phone"><div class="notch"></div>
         <div class="screen" id="dscreen">
           <div class="bgimg" id="dbg"></div>
