@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <pattern id="stripes" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="40" height="40" fill="#F7E8B8"/>
+      <rect width="20" height="40" fill="#F3DFA6"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="1200" fill="url(#stripes)"/>
+  <g transform="translate(450 560)" stroke="#3a1a0c" stroke-width="14" stroke-linejoin="round">
+    <rect x="-230" y="-170" width="460" height="340" rx="40" fill="#FFF6DC"/>
+    <circle cx="110" cy="-70" r="46" fill="#E2B54E"/>
+    <path d="M-230 130 L-90 -20 L10 80 L80 20 L230 150 L230 130 Q230 170 190 170 L-190 170 Q-230 170 -230 130 Z" fill="#B5322A"/>
+  </g>
+  <text x="450" y="860" text-anchor="middle" font-family="Fredoka, Nunito, sans-serif" font-weight="600" font-size="64" fill="#3a1a0c">Your photo here</text>
+  <text x="450" y="930" text-anchor="middle" font-family="Fredoka, Nunito, sans-serif" font-size="34" fill="#5A1A12">public/photos/</text>
+</svg>
