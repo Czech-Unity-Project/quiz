@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz style options</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 16px 48px; background: #e9e9ec; font-family: 'Nunito', system-ui, sans-serif; color: #222; }
+  h1 { text-align: center; margin: 0 0 4px; font-size: 22px; }
+  .sub { text-align: center; margin: 0 0 28px; color: #666; font-size: 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; }
+  .opt { width: 300px; }
+  .opt h2 { font-size: 16px; margin: 14px 0 2px; }
+  .opt > p { font-size: 13px; color: #555; margin: 0; line-height: 1.4; }
+
+  /* phone */
+  .phone { width: 300px; height: 620px; border-radius: 44px; padding: 12px; background: #111;
+           box-shadow: 0 0 0 2px #333, 0 30px 50px -20px rgba(0,0,0,.5); position: relative; }
+  .screen { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; position: relative;
+            display: flex; flex-direction: column; padding: 44px 16px 20px; }
+  .notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 90px; height: 24px;
+           background: #111; border-radius: 0 0 16px 16px; z-index: 5; }
+  .top { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 13px; margin-bottom: 10px; }
+  .pill { padding: 5px 11px; border-radius: 99px; }
+  .timer { height: 12px; border-radius: 99px; overflow: hidden; margin-bottom: 14px; position: relative; }
+  .timer i { display: block; height: 100%; width: 64%; border-radius: 99px; position: relative; }
+  .timer i::after { content: ""; position: absolute; left: 4px; right: 4px; top: 2px; height: 3px; border-radius: 99px; background: rgba(255,255,255,.6); }
+  .photo { flex: 1; border-radius: 18px; background-size: cover; background-position: center; margin-bottom: 16px; position: relative; }
+  .q { text-align: center; font-weight: 900; font-size: 16px; margin: 0 0 12px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .btn { position: relative; height: 58px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+         font-weight: 900; font-size: 16px; overflow: hidden; }
+  .btn::before { content: ""; position: absolute; pointer-events: none; }
+
+  /* 1 — Glossy mustard */
+  .s1 .screen { background: radial-gradient(120% 80% at 50% 0%, #f2cf6e 0%, #e0ad3f 55%, #c98f28 100%); color: #4a1f0c; }
+  .s1 .pill { background: rgba(122,30,20,.12); box-shadow: inset 0 1px 2px rgba(0,0,0,.15); }
+  .s1 .timer { background: rgba(90,30,10,.18); box-shadow: inset 0 2px 3px rgba(0,0,0,.25); }
+  .s1 .timer i { background: linear-gradient(#e2483c, #a8221a); }
+  .s1 .photo { border: 4px solid #fff7df; box-shadow: 0 8px 18px -6px rgba(90,40,0,.55); }
+  .s1 .btn { background: linear-gradient(#ffe68a 0%, #f6c63f 50%, #e6a823 100%); color: #5a1a10;
+             border: 3px solid #b3261e; box-shadow: 0 5px 0 #7d1a14, 0 9px 14px -4px rgba(80,20,0,.5);
+             text-shadow: 0 1px 0 rgba(255,255,255,.6); }
+  .s1 .btn::before { left: 6px; right: 6px; top: 3px; height: 45%; border-radius: 12px 12px 30px 30px;
+                     background: linear-gradient(rgba(255,255,255,.85), rgba(255,255,255,.1)); }
+
+  /* 2 — Game show stage */
+  .s2 .screen { background: radial-gradient(70% 45% at 50% 0%, rgba(120,150,255,.45), transparent 70%),
+                            radial-gradient(130% 90% at 50% 100%, #1c2a7a 0%, #0b1240 55%, #050822 100%); color: #fff; }
+  .s2 .pill { background: linear-gradient(#f7dc7a, #c9952c); color: #3a2600; box-shadow: 0 2px 6px rgba(0,0,0,.4); }
+  .s2 .timer { background: #050a2a; box-shadow: inset 0 2px 4px rgba(0,0,0,.6), 0 0 0 1px rgba(255,215,120,.35); }
+  .s2 .timer i { background: linear-gradient(#ffe48a, #e0a42c); box-shadow: 0 0 10px rgba(255,200,80,.7); }
+  .s2 .photo { box-shadow: 0 0 0 3px #d9ab45, 0 0 0 5px #6b4a10, 0 0 24px rgba(120,150,255,.5); }
+  .s2 .btn { color: #fff; border: 2px solid transparent;
+             background: linear-gradient(#2a3fa8, #0d1a63) padding-box, linear-gradient(#fff1b8, #d4a03a 45%, #7a5410) border-box;
+             box-shadow: 0 6px 14px rgba(0,0,0,.55); text-shadow: 0 2px 3px rgba(0,0,0,.6); letter-spacing: .3px; }
+  .s2 .btn::before { left: 0; right: 0; top: 0; height: 50%; background: linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.04)); }
+
+  /* 3 — Candy jelly */
+  .s3 .screen { background: radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eaf1ff 50%, #cfdcf7 100%); color: #23305e; font-family: 'Fredoka', 'Nunito', sans-serif; }
+  .s3 .pill { background: #fff; box-shadow: 0 2px 6px rgba(40,60,140,.18); }
+  .s3 .timer { background: #dfe6f7; box-shadow: inset 0 2px 3px rgba(40,60,140,.2); }
+  .s3 .timer i { background: linear-gradient(#ff9a5c, #f04f3a); }
+  .s3 .photo { border: 5px solid #fff; box-shadow: 0 10px 20px -8px rgba(40,60,140,.45); }
+  .s3 .btn { color: #fff; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; border-radius: 22px;
+             text-shadow: 0 2px 2px rgba(0,0,0,.25); }
+  .s3 .btn::before { left: 8px; right: 8px; top: 4px; height: 44%; border-radius: 18px 18px 40px 40px;
+                     background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.15)); }
+  .s3 .c1 { background: linear-gradient(#ff7a8a, #e3243b); box-shadow: inset 0 -5px 8px rgba(120,0,20,.35), 0 8px 14px -6px #e3243b; }
+  .s3 .c2 { background: linear-gradient(#7ab8ff, #1f6fe0); box-shadow: inset 0 -5px 8px rgba(0,30,110,.35), 0 8px 14px -6px #1f6fe0; }
+  .s3 .c3 { background: linear-gradient(#ffd86a, #f0a400); box-shadow: inset 0 -5px 8px rgba(120,60,0,.35), 0 8px 14px -6px #f0a400; }
+  .s3 .c4 { background: linear-gradient(#7fe08a, #23a33a); box-shadow: inset 0 -5px 8px rgba(0,70,20,.35), 0 8px 14px -6px #23a33a; }
+
+  /* 4 — Frosted glass over the photo */
+  .s4 .screen { color: #fff; }
+  .s4 .bgimg { position: absolute; inset: -30px; background-size: cover; background-position: center; filter: blur(18px) saturate(1.3) brightness(.75); z-index: 0; }
+  .s4 .screen > *:not(.bgimg) { position: relative; z-index: 1; }
+  .s4 .pill { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(8px); }
+  .s4 .timer { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); }
+  .s4 .timer i { background: linear-gradient(90deg, #fff, #ffe6a8); }
+  .s4 .photo { border: 1px solid rgba(255,255,255,.5); box-shadow: 0 14px 30px -10px rgba(0,0,0,.6); }
+  .s4 .btn { background: linear-gradient(135deg, rgba(255,255,255,.32), rgba(255,255,255,.08)); border: 1px solid rgba(255,255,255,.45);
+             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 8px 20px -8px rgba(0,0,0,.5);
+             text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+  .s4 .btn::before { top: -60%; left: -30%; width: 45%; height: 220%; transform: rotate(25deg);
+                     background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); }
+
+  /* 5 — Chunky arcade */
+  .s5 .screen { background: radial-gradient(120% 70% at 50% 0%, #3b2f6b 0%, #241b48 55%, #150f2e 100%); color: #fff; }
+  .s5 .pill { background: #120c28; box-shadow: inset 0 2px 4px rgba(0,0,0,.6), 0 1px 0 rgba(255,255,255,.1); color: #ffd23f; }
+  .s5 .timer { background: #120c28; box-shadow: inset 0 2px 4px rgba(0,0,0,.7); }
+  .s5 .timer i { background: linear-gradient(#ffe066, #ffb400); }
+  .s5 .photo { border: 4px solid #120c28; box-shadow: 0 0 0 3px #4d3f8a, 0 10px 20px rgba(0,0,0,.5); }
+  .s5 .btn { color: #fff; border-radius: 14px; text-shadow: 0 2px 0 rgba(0,0,0,.3); }
+  .s5 .btn::before { left: 5px; right: 5px; top: 3px; height: 40%; border-radius: 10px;
+                     background: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,0)); }
+  .s5 .c1 { background: linear-gradient(#ff6b6b, #e83a4a); box-shadow: 0 7px 0 #9c1c2c, 0 12px 14px rgba(0,0,0,.45); }
+  .s5 .c2 { background: linear-gradient(#4fd1ff, #1a9be0); box-shadow: 0 7px 0 #0b5f94, 0 12px 14px rgba(0,0,0,.45); }
+  .s5 .c3 { background: linear-gradient(#ffd23f, #f5a300); box-shadow: 0 7px 0 #a36400, 0 12px 14px rgba(0,0,0,.45); color: #4a2a00; text-shadow: 0 1px 0 rgba(255,255,255,.5); }
+  .s5 .c4 { background: linear-gradient(#6ee08a, #22b04a); box-shadow: 0 7px 0 #137030, 0 12px 14px rgba(0,0,0,.45); }
+</style>
+</head>
+<body>
+<h1>Question screen: style options</h1>
+<p class="sub">Real Wikimedia Commons photos. Buttons shown in their idle state.</p>
+<div class="row" id="row"></div>
+
+<script>
+  const IMG = (path) => `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}`;
+  const photos = {
+    oia:     IMG('3/37/Oia_sunset_-_panoramio_%282%29.jpg/500px-Oia_sunset_-_panoramio_%282%29.jpg'),
+    tallinn: IMG('e/ed/Old_Town_of_Tallinn%2C_Tallinn%2C_Estonia_-_panoramio_%2858%29.jpg/500px-Old_Town_of_Tallinn%2C_Tallinn%2C_Estonia_-_panoramio_%2858%29.jpg'),
+    gamla:   IMG('8/8a/Gamla_stan_September_2014_01.jpg/500px-Gamla_stan_September_2014_01.jpg'),
+    sagrada: IMG('e/ef/SF_maig_2_cropped.jpg/500px-SF_maig_2_cropped.jpg'),
+    navagio: IMG('d/d3/Navagio%2C_Zante_01.jpg/500px-Navagio%2C_Zante_01.jpg'),
+  };
+  const styles = [
+    { cls: 's1', photo: 'tallinn', name: '1 · Glossy mustard',
+      desc: 'Your idea, made tactile: glossy yellow buttons, a red bevelled edge with a pressable 3D lip, and a glare highlight.' },
+    { cls: 's2', photo: 'oia', name: '2 · Game show stage',
+      desc: 'TV-quiz glamour: spotlit navy stage, glassy blue buttons with gold metallic rims.' },
+    { cls: 's3', photo: 'gamla', name: '3 · Candy jelly',
+      desc: 'Glossy jelly buttons, one colour per answer, on a soft light background. Playful and friendly.' },
+    { cls: 's4', photo: 'sagrada', name: '4 · Frosted glass',
+      desc: 'The photo blurs into the whole background; frosted-glass buttons with a diagonal glare. Each question gets its own colours.' },
+    { cls: 's5', photo: 'navagio', name: '5 · Chunky arcade',
+      desc: 'Thick push-down arcade buttons with a hard 3D edge and shine, on a deep purple cabinet.' },
+  ];
+  const countries = ['Estonia', 'Sweden', 'Spain', 'Greece'];
+  document.getElementById('row').innerHTML = styles.map(s => `
+    <div class="opt ${s.cls}">
+      <div class="phone"><div class="notch"></div>
+        <div class="screen">
+          ${s.cls === 's4' ? `<div class="bgimg" style="background-image:url('${photos[s.photo]}')"></div>` : ''}
+          <div class="top"><span class="pill">Question 4 / 12</span><span class="pill">Score 3</span></div>
+          <div class="timer"><i></i></div>
+          <div class="photo" style="background-image:url('${photos[s.photo]}')"></div>
+          <p class="q">Where was this photo taken?</p>
+          <div class="grid">${countries.map((c, i) => `<div class="btn c${i + 1}">${c}</div>`).join('')}</div>
+        </div>
+      </div>
+      <h2>${s.name}</h2><p>${s.desc}</p>
+    </div>`).join('');
+</script>
+</body>
+</html>
