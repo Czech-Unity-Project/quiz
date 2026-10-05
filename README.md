@@ -33,7 +33,7 @@ One-time setup:
 1. Create a GitHub repo and push this project's `main` branch to it.
 2. In the repo, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
 
-After that, every push to `main` runs the tests, builds, and publishes to `https://<your-user>.github.io/<repo-name>/` in about a minute. A failing test stops the deploy. Make a QR code from that URL for people to scan.
+After that, every push to `main` (including merging a pull request) runs the tests, builds, and publishes to **https://czech-unity-project.github.io/quiz/** in about a minute. A failing test stops the deploy. Pull requests into `main` run the same tests and build as a check, without deploying. Make a QR code from that URL for people to scan.
 
 **Alternative:** import the repo on [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com/) (free tiers). They detect Vite automatically: build command `npm run build`, output folder `dist`.
 
