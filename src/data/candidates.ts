@@ -31,4 +31,8 @@ export const CANDIDATES: Question[] = [
   // Greece (brainstorm ideas, delete if unwanted)
   { title: 'Meteora monasteries', image: 'placeholder.svg', answer: 'Greece' },
   { title: 'Evzones guards', image: 'greece-evzones.jpg', answer: 'Greece', fact: 'Evzones: the presidential guard at the Tomb of the Unknown Soldier in Athens, in pom-pom shoes (tsarouchia)' },
+  { title: 'Christmas boat', image: 'greece-christmas-boat.jpg', answer: 'Greece', fact: 'Traditionally, Greeks decorate a sailing boat instead of a Christmas tree. It symbolizes a new sail in life and love for the sea' },
+  { title: 'Olympic flame lighting ceremony', image: 'greece-olympic-flame.jpg', answer: 'Greece', fact: 'The Olympic flame is lit only in ancient Olympia before each Olympic Games: a circular mirror collects the sun\'s rays and lights the fire naturally' },
+  { title: 'Kouloura vines, Santorini', image: 'greece-kouloura-vines.jpg', answer: 'Greece', fact: 'Kouloures: on Santorini, vines are woven into baskets to protect the grapes from strong winds and keep humidity inside in the volcanic soil' },
+  { title: 'Antikythera mechanism', image: 'greece-antikythera-mechanism.jpg', answer: 'Greece', fact: 'The world\'s first analog computer, dated 150–100 BC, discovered off the island of Antikythera' },
 ];

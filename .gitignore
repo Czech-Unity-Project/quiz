@@ -2,3 +2,6 @@ node_modules
 dist
 *.local
 .DS_Store
+
+# Scratch folder for raw downloaded photos; resized copies go in public/photos/
+img/
