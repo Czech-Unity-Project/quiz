@@ -2,7 +2,9 @@ name: Build and deploy
 
 on:
   push:
-    branches: [main]
+    # TEMPORARY: showcase deploys the whole site (game + /showcase/) until it's merged into main.
+    # Whichever branch deploys last replaces the entire site. Remove `showcase` once merged.
+    branches: [main, showcase]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -36,6 +38,10 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
+    # One Pages site: deploys from different branches queue instead of overlapping.
+    concurrency:
+      group: pages-deploy
+      cancel-in-progress: false
     permissions:
       pages: write
       id-token: write
