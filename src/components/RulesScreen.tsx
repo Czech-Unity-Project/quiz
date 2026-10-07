@@ -17,7 +17,7 @@ export default function RulesScreen({ questionCount, onStart }: Props) {
       <div className="card">
         <ol className="rule-list">
           <li><span>You'll see <b>{questionCount} photos</b>, one at a time.</span></li>
-          <li><span>Tap the country where each photo was taken.</span></li>
+          <li><span>Tap the country each photo is relevant to.</span></li>
           <li><span>You have <b>{TIME_LIMIT_SECONDS} seconds</b> per photo.</span></li>
           <li><span>Every right answer is <b>1 point</b>.</span></li>
         </ol>

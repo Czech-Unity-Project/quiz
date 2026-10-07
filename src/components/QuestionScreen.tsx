@@ -50,8 +50,14 @@ export default function QuestionScreen({ state, dispatch }: Props) {
       {correct && <div key={`plus-${index}`} className="plus">+1</div>}
 
       <div className="stage" key={`stage-${index}`}>
-        <div className="photo">
-          <img src={photoUrl(question.image)} alt="Mystery photo: which country is this?" />
+        <div className={question.fit === 'contain' ? 'photo contain' : 'photo'}>
+          {/* Whole-photo mode: a blurred copy fills the space around the photo. */}
+          {question.fit === 'contain' && <img className="backdrop" src={photoUrl(question.image)} alt="" />}
+          <img
+            src={photoUrl(question.image)}
+            style={question.focus ? { objectPosition: question.focus } : undefined}
+            alt="Mystery photo: which country is this?"
+          />
           {answered && (
             <>
               <div className={`toast ${toast.kind}`} role="status">{toast.text}</div>
@@ -62,7 +68,9 @@ export default function QuestionScreen({ state, dispatch }: Props) {
           )}
         </div>
 
-        <p className="q">{answered && question.fact ? question.fact : 'Where was this photo taken?'}</p>
+        <p className="q">
+          {answered && question.fact ? question.fact : (question.prompt ?? 'What country is this relevant to?')}
+        </p>
 
         <div className="grid">
           {COUNTRIES.map((c) => (

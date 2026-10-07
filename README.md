@@ -15,7 +15,9 @@ Built with React + TypeScript + Vite. It's a plain static site, so hosting is fr
    `fact` (shown after answering) and `credit` (listed on the result screen) are optional.
 3. Delete the `placeholder.svg` entries.
 
-Each game draws 12 questions, 3 per country, so have at least 3 per country. More gives variety on replays. The number of questions and the time limit are in [`src/config.ts`](src/config.ts).
+The game plays the questions **in the order they appear in the file** (12 questions, 3 per country). `npm test` checks the order rules: exactly one place where the same country comes twice in a row, and never the same `category` twice in a row. To get random picks and a shuffled order instead, set `SHUFFLE_QUESTIONS = true` in [`src/config.ts`](src/config.ts), which also holds the number of questions and the time limit.
+
+Candidates for colleagues to choose from go in [`src/data/candidates.ts`](src/data/candidates.ts) (same format) and are shown at `/showcase/`.
 
 ## Run locally
 

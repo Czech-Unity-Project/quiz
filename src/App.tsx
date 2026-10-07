@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { ROUND_SIZE } from './config';
+import { ROUND_SIZE, SHUFFLE_QUESTIONS } from './config';
 import { QUESTIONS } from './data/questions';
 import { buildRound } from './game/logic';
 import { gameReducer, initialState } from './game/reducer';
@@ -9,7 +9,11 @@ import ResultScreen from './components/ResultScreen';
 
 export default function App() {
   const [state, dispatch] = useReducer(gameReducer, initialState);
-  const start = () => dispatch({ type: 'START', round: buildRound(QUESTIONS, ROUND_SIZE) });
+  const start = () =>
+    dispatch({
+      type: 'START',
+      round: SHUFFLE_QUESTIONS ? buildRound(QUESTIONS, ROUND_SIZE) : QUESTIONS.slice(0, ROUND_SIZE),
+    });
 
   return (
     <main className="app">
