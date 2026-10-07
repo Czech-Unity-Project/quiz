@@ -132,8 +132,10 @@ button:focus-visible { outline: 3px solid var(--ol); outline-offset: 3px; }
 .result { justify-content: center; gap: 18px; }
 .result-card { padding: 30px 22px 24px; text-align: center; animation: cardIn .5s cubic-bezier(.2, .9, .3, 1.4) both; }
 .result-card .label { font-weight: 600; font-size: 16px; opacity: .8; }
-.result-card .big { font-size: 84px; line-height: 1; font-weight: 600; margin: 8px 0 10px; color: var(--be); text-shadow: 4px 4px 0 var(--ol); }
+.result-card .big { font-size: min(84px, 22vw); white-space: nowrap; line-height: 1; font-weight: 600; margin: 8px 0 10px; color: var(--be); text-shadow: 4px 4px 0 var(--ol); }
 .result-card .msg { font-size: 19px; line-height: 1.35; margin: 0 0 22px; font-weight: 500; }
+.result-card .follow { font-size: 16px; line-height: 1.4; margin: -10px 0 22px; }
+.result-card .follow a { color: var(--be); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .credits { font-size: 13px; color: var(--tx); text-align: center; }
 .credits summary { cursor: pointer; font-weight: 600; }
 .credits ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 4px; text-align: left; }

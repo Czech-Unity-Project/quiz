@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { INSTAGRAM } from '../config';
 import type { Question } from '../data/questions';
 import { messageFor } from '../game/logic';
 import Confetti from './Confetti';
@@ -32,6 +33,12 @@ export default function ResultScreen({ score, round, onRestart }: Props) {
           {shown} / {total}
         </div>
         <p className="msg">{text}</p>
+        <p className="follow">
+          Want more? Follow us on Instagram:{' '}
+          <a href={INSTAGRAM.url} target="_blank" rel="noopener noreferrer">
+            @{INSTAGRAM.handle}
+          </a>
+        </p>
         <button className="cta" onClick={onRestart}>
           Play again
         </button>

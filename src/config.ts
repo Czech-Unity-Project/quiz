@@ -10,5 +10,8 @@ export const ROUND_SIZE = 12;
  */
 export const SHUFFLE_QUESTIONS = false;
 
+/** Linked on the result screen. */
+export const INSTAGRAM = { handle: 'czechunityproject', url: 'https://www.instagram.com/czechunityproject/' };
+
 /** Seconds per question before it counts as wrong. */
 export const TIME_LIMIT_SECONDS = 10;
