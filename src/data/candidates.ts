@@ -33,7 +33,7 @@ export const CANDIDATES: Question[] = [
   { title: 'Las Fallas', image: 'spain-fallas.jpg', answer: 'Spain', fact: 'Las Fallas in Valencia: giant satirical papier-mâché figures (fallas) are built every year and burned in a huge celebration at the end' },
 
   // Greece (brainstorm ideas, delete if unwanted)
-  { title: 'Meteora monasteries', image: 'placeholder.svg', answer: 'Greece' },
+  { title: 'Meteora monasteries', image: 'greece-meteora.jpg', answer: 'Greece', fact: 'Meteora: monasteries built from the 14th century on top of giant rock pillars. Monks were once hauled up in nets on ropes' },
   { title: 'Evzones guards', image: 'greece-evzones.jpg', answer: 'Greece', fact: 'Evzones: the presidential guard at the Tomb of the Unknown Soldier in Athens, in pom-pom shoes (tsarouchia)' },
   { title: 'Christmas boat', image: 'greece-christmas-boat.jpg', answer: 'Greece', fact: 'Traditionally, Greeks decorate a sailing boat instead of a Christmas tree. It symbolizes a new sail in life and love for the sea' },
   { title: 'Olympic flame lighting ceremony', image: 'greece-olympic-flame.jpg', answer: 'Greece', fact: 'The Olympic flame is lit only in ancient Olympia before each Olympic Games: a circular mirror collects the sun\'s rays and lights the fire naturally' },
