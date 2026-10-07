@@ -25,8 +25,12 @@ export const CANDIDATES: Question[] = [
   // Spain
   { title: 'La Tomatina', image: 'spain-la-tomatina.jpg', answer: 'Spain', fact: 'La Tomatina in Buñol: a giant tomato fight every August' },
   // (brainstorm ideas, delete if unwanted)
-  { title: 'Castells (human towers)', image: 'placeholder.svg', answer: 'Spain' },
+  { title: 'Castells (human towers)', image: 'spain-castells.jpg', answer: 'Spain', fact: 'Castells: Catalan human towers up to ten levels high, topped by a child who climbs up and waves. On UNESCO\'s heritage list', credit: 'Photo: Jen Rose Smith' },
   { title: 'Churros with chocolate', image: 'placeholder.svg', answer: 'Spain' },
+  { title: 'Paparajotes', image: 'spain-paparajotes.jpg', answer: 'Spain', fact: 'Paparajotes: a traditional dessert from Murcia. A fresh lemon tree leaf is coated in batter, fried and dusted with sugar and cinnamon (the leaf isn\'t eaten)' },
+  { title: 'Cathedral of Santiago de Compostela', image: 'spain-santiago-cathedral.jpg', answer: 'Spain', fact: 'The Cathedral of Santiago de Compostela, where hundreds of thousands of pilgrims finish the Camino de Santiago every year' },
+  { title: 'Baldness', image: 'spain-bald.jpg', answer: 'Spain', fact: 'According to some surveys, Spain has the highest share of bald men of any country' },
+  { title: 'Las Fallas', image: 'spain-fallas.jpg', answer: 'Spain', fact: 'Las Fallas in Valencia: giant satirical papier-mâché figures (fallas) are built every year and burned in a huge celebration at the end' },
 
   // Greece (brainstorm ideas, delete if unwanted)
   { title: 'Meteora monasteries', image: 'placeholder.svg', answer: 'Greece' },
